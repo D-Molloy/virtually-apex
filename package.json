@@ -1,0 +1,32 @@
+{
+  "name": "near-apogee",
+  "version": "1.0.0",
+  "description": "\"Code evaluation for Near Apogee\"",
+  "main": "server.js",
+  "scripts": {
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"node server\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
+  },
+  "proxy": "http://localhost:3001/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/D-Molloy/virtually-apex.git"
+  },
+  "author": "Denis Molloy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/D-Molloy/virtually-apex/issues"
+  },
+  "homepage": "https://github.com/D-Molloy/virtually-apex#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcrypt": "^4.0.1",
+    "concurrently": "^5.2.0",
+    "express": "^4.17.1"
+  }
+}
