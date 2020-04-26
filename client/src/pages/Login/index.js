@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import FormInput from '../../components/FormInput';
 const initalState = {
   email: '',
   password: '',
@@ -22,28 +22,18 @@ export default function Login() {
       <form onSubmit={(e) => handleSubmit(e)}>
         <fieldset>
           <legend>Login</legend>
-          <label htmlFor='login__email'>
-            Login:
-            <input
-              id='login__email'
-              type='email'
-              name='email'
-              value={formData.email}
-              required
-              onChange={(e) => handleChange(e)}
-            />
-          </label>
-          <label htmlFor='login__password'>
-            Password:
-            <input
-              id='login__password'
-              type='password'
-              name='password'
-              value={formData.password}
-              required
-              onChange={(e) => handleChange(e)}
-            />
-          </label>
+          <FormInput
+            comp='login'
+            inputType='email'
+            data={formData}
+            handleChange={handleChange}
+          />
+          <FormInput
+            comp='login'
+            inputType='password'
+            data={formData}
+            handleChange={handleChange}
+          />
           <button>Login</button>
         </fieldset>
       </form>
