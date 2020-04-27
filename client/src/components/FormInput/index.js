@@ -1,31 +1,59 @@
 import React from 'react';
+import './formInput.css';
 const capitalizeStr = (str) => str.substr(0, 1).toUpperCase() + str.substr(1);
 
-export default function FormInput({ comp, inputType, data, handleChange }) {
-  let autocompleteVal;
+export default function FormInput({
+  comp,
+  inputType,
+  data,
+  handleChange,
+  title,
+}) {
+  // determine different autocomplete values
+  let autocompleteVal = '';
   switch (inputType) {
-    case 'password' && comp === 'login':
-      autocompleteVal = 'current-password';
+    case 'password':
+      switch (comp) {
+        case 'login':
+          autocompleteVal = 'current-password';
+          break;
+        case 'signup':
+          autocompleteVal = 'new-password';
+          break;
+        default:
+          break;
+      }
       break;
-    case 'password' && comp === 'signup':
-      autocompleteVal = 'new-password';
+    case 'text':
+      autocompleteVal = 'name';
       break;
     default:
       break;
   }
 
+  let altValue = '';
+  switch (title) {
+    case 'confirm password':
+      altValue = 'confirmPassword';
+      title = 'confirmPassword';
+      break;
+    default:
+      break;
+  }
+  console.log('data[title]', data[title]);
   return (
-    <label htmlFor={`${comp}__${inputType}`}>
-      {capitalizeStr(inputType)}:
+    <div className='formInput__container'>
+      <label htmlFor={`${comp}__${inputType}`}>{capitalizeStr(title)}:</label>
       <input
-        id={`${comp}__${inputType}`}
+        id={`${comp}__${altValue || inputType}`}
+        className='formInput__input'
         type={inputType}
-        name={inputType}
-        value={data[inputType]}
+        name={altValue || title}
+        value={data[title]}
         autoComplete={autocompleteVal || inputType}
         required
         onChange={(e) => handleChange(e)}
       />
-    </label>
+    </div>
   );
 }

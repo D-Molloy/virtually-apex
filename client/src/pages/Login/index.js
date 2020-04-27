@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import FormInput from '../../components/FormInput';
+import { Link } from 'react-router-dom';
+// useHistory
 const initalState = {
   email: '',
   password: '',
@@ -26,17 +28,24 @@ export default function Login() {
             comp='login'
             inputType='email'
             data={formData}
+            title='email'
             handleChange={handleChange}
           />
+
           <FormInput
             comp='login'
             inputType='password'
             data={formData}
+            title='password'
             handleChange={handleChange}
           />
-          <button>Login</button>
+
+          <button disabled={!formData.email || !formData.password}>
+            Login
+          </button>
         </fieldset>
       </form>
+      <Link to='/signup'>Create Account</Link>
     </div>
   );
 }
