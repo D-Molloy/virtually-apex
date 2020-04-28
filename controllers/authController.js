@@ -1,14 +1,14 @@
 const db = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { isEmpty, validateSignup } = require('../utils/validation');
+const { validateSignup, validateLogin } = require('../utils/validation');
+const { authenticateToken, generateAccessToken } = require('../utils/auth');
 
 module.exports = {
-  create: async function (req, res) {
-    // validate req.body
-    const { isValid, errors, userData } = validateSignup(req.body);
-
-    if (!isValid) {
+  create: async (req, res) => {
+    // validate signup creds
+    const { errors, userData } = validateSignup(req.body);
+    if (!userData) {
       return res.status(400).json(errors);
     }
     // check if email exists in db
@@ -18,16 +18,13 @@ module.exports = {
         .status(400)
         .json({ email: 'Email already associated with an account.' });
     }
-
     // create a new user
     try {
       // hash the password
       const hashedPassword = await bcrypt.hash(userData.password, 10);
       userData.password = hashedPassword;
-
       // create user
       await db.createUser(userData);
-
       res.send('User created!');
     } catch (e) {
       res.status(500).send({
@@ -36,17 +33,44 @@ module.exports = {
       });
     }
   },
-  login: function (req, res) {
-    console.log('AUTH - LOGIN - ', req.body);
-    res.json(req.body);
+  login: async (req, res) => {
+    // validate login creds
+    const { errors, userData } = validateLogin(req.body);
+    if (!userData) {
+      return res.status(400).json(errors);
+    }
+    // check to see if the user exsists
+    const {
+      rows: [foundUser],
+    } = await db.findUser(userData.email);
+    if (!foundUser) {
+      return res
+        .status(404)
+        .json({ message: 'Email not registered. Please create an account.' });
+    }
+    // validate password
+    try {
+      // compare submitted password and hashed password of found user
+      if (await bcrypt.compare(userData.password, foundUser.password)) {
+        // user logged in
+        // Create JWT
+        delete foundUser.password;
+
+        const token = generateAccessToken(foundUser);
+
+        // send the JWT to the user
+        return res.send({ token });
+      }
+    } catch (e) {
+      return res.status(403).json({
+        message: 'Please check credentials and try again',
+      });
+    }
+
+    return res.json(foundUser);
+  },
+  // send private user data
+  getUser: (req, res) => {
+    res.json(req.user);
   },
 };
-
-// TODO:
-// get all users
-// const { rows: users } = await db.getAllUsers();
-// res.json(users);
-// --------
-// find one user
-// const { rows: foundUser } = await db.findUser('den@test.com');
-// res.json({ foundUser });

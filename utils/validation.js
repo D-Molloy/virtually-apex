@@ -8,8 +8,14 @@ const isEmpty = (value) =>
 // ensure submitted email has valid syntax
 const isEmail = (email) => {
   var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
+  return re.test(String(email));
 };
+
+// validate phone
+function isPhoneNum(phone) {
+  var re = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  return re.test(String(phone));
+}
 
 // Trim any whitespace off login values
 const trimObjVals = (obj) => {
@@ -23,28 +29,37 @@ const trimObjVals = (obj) => {
 // compare to string to see if same
 const doPasswordsMatch = (pass1, pass2) => pass1 === pass2;
 
+// validate req.body when creating account
 const validateSignup = (data) => {
   const errors = {};
   const userData = trimObjVals(data);
 
   if (isEmpty(userData.name)) {
-    errors.name = 'Name field required';
+    errors.name = 'Name field required.';
   }
 
   if (isEmpty(userData.email)) {
-    errors.email = 'Email field required';
+    errors.email = 'Email field required.';
   }
 
   if (!isEmail(userData.email)) {
-    errors.email = 'Please enter a valid email';
+    errors.email = 'Please enter a valid email.';
+  }
+
+  if (!isPhoneNum(userData.phone) || isEmpty(userData.phone)) {
+    errors.phone = 'Please enter a valid phone number.';
   }
 
   if (isEmpty(userData.password)) {
-    errors.password = 'Password field required';
+    errors.password = 'Password field required.';
+  }
+
+  if (userData.password.length < 6) {
+    errors.password = 'Please use a stronger password.';
   }
 
   if (isEmpty(userData.password2)) {
-    errors.password2 = 'Confirm Password field required';
+    errors.password2 = 'Confirm Password field required.';
   }
 
   if (!doPasswordsMatch(userData.password, userData.password2)) {
@@ -53,13 +68,31 @@ const validateSignup = (data) => {
 
   delete userData.password2;
 
-  const isValid = isEmpty(errors);
-
   return {
-    isValid,
     errors,
-    userData: isValid ? userData : null,
+    userData: isEmpty(errors) ? userData : null,
   };
 };
 
-module.exports = { validateSignup, isEmpty };
+// validate login credentials
+const validateLogin = (data) => {
+  const errors = {};
+  const userData = trimObjVals(data);
+  if (isEmpty(userData.email)) {
+    errors.email = 'Email field required.';
+  }
+  if (!isEmail(userData.email)) {
+    errors.email = 'Please enter a valid email.';
+  }
+
+  if (isEmpty(userData.password)) {
+    errors.password = 'Password field required.';
+  }
+
+  return {
+    errors,
+    userData: isEmpty(errors) ? userData : null,
+  };
+};
+
+module.exports = { validateSignup, validateLogin };

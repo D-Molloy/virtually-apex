@@ -14,10 +14,10 @@ class DB {
       email,
     ]);
   }
-  createUser({ name, email, password }) {
+  createUser({ name, email, phone, password }) {
     return this.connection.query(
-      'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
-      [name, email, password]
+      'INSERT INTO users (name, email, phone, password) VALUES ($1, $2, $3, $4)',
+      [name, email, phone, password]
     );
   }
 }
