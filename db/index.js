@@ -14,7 +14,7 @@ class DB {
       email,
     ]);
   }
-  createUser(name, email, password) {
+  createUser({ name, email, password }) {
     return this.connection.query(
       'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
       [name, email, password]
