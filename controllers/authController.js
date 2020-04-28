@@ -55,18 +55,16 @@ module.exports = {
         // user logged in
         // Create JWT
         delete foundUser.password;
-
         const token = generateAccessToken(foundUser);
-
         // send the JWT to the user
         return res.send({ token });
       }
     } catch (e) {
+      // Bad password
       return res.status(403).json({
         message: 'Please check credentials and try again',
       });
     }
-
     return res.json(foundUser);
   },
   // send private user data
