@@ -1,8 +1,7 @@
 const db = require('../db');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const { validateSignup, validateLogin } = require('../utils/validation');
-const { authenticateToken, generateAccessToken } = require('../utils/auth');
+const { generateAccessToken } = require('../utils/auth');
 
 module.exports = {
   create: async (req, res) => {
