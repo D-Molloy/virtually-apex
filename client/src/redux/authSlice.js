@@ -14,11 +14,11 @@ export const authSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
+    // TODO: remove?
     clearToken: (state) => {
       state.token = '';
     },
     setErrors: (state, action) => {
-      console.log('state, action', { state, action });
       state.errors = action.payload;
     },
     clearErrors: (state) => {
@@ -27,6 +27,7 @@ export const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    // TODO: remove?
     clearUser: (state) => {
       state.user = '';
     },

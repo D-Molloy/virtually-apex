@@ -52,7 +52,6 @@ module.exports = {
     if (await bcrypt.compare(userData.password, foundUser.password)) {
       // user logged in
       // Create JWT
-      console.log('foundUser', foundUser);
       delete foundUser.password;
       const token = generateAccessToken(foundUser);
       // send the JWT to the user

@@ -8,7 +8,7 @@ const connection = new Pool({
   database: 'virtually_apex',
 });
 
-connection.on('error', (err, client) => {
+connection.on('error', (err) => {
   console.error('Unexpected error on idle client', err);
   process.exit(-1);
 });
