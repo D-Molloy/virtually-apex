@@ -14,9 +14,9 @@ export default function Dashboard() {
   const [staff, setStaff] = useState([]);
 
   useEffect(() => {
-    // if (!token) {
-    //   history.push('/');
-    // }
+    if (!token) {
+      history.push('/');
+    }
     dispatch(getUser(token, history));
   }, [token, dispatch, history]);
 

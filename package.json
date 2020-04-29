@@ -4,12 +4,12 @@
   "description": "\"Code evaluation for Near Apogee\"",
   "main": "server.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "node server.js",
-    "start:dev": "concurrently \"node server\" \"npm run client\"",
+    "start": "concurrently \"node server\" \"npm run client\"",
     "client": "cd client && npm run start",
     "install": "cd client && npm install",
-    "build": "cd client && npm run build",
+    "migrate": "node-pg-migrate",
+    "create:db": "cd db && node dbCreate.js",
+    "create:tables": "npm run migrate up",
     "seed": "cd db && node dbSeed.js"
   },
   "proxy": "http://localhost:3001/",
@@ -30,6 +30,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "node-pg-migrate": "^4.7.0",
     "pg": "^8.0.3",
     "pgtools": "^0.3.0"
   }
