@@ -4,8 +4,10 @@ const { validateSignup, validateLogin } = require('../utils/validation');
 const { generateAccessToken } = require('../utils/auth');
 
 module.exports = {
+  // create a new account
   create: async (req, res) => {
     // validate signup creds
+    console.log('req.body', req.body);
     const { errors, userData } = validateSignup(req.body);
     if (!userData) {
       return res.status(400).json(errors);
@@ -32,6 +34,7 @@ module.exports = {
       });
     }
   },
+  // log a user in
   login: async (req, res) => {
     // validate login creds
     const { errors, userData } = validateLogin(req.body);
@@ -48,23 +51,20 @@ module.exports = {
         .json({ message: 'Email not registered. Please create an account.' });
     }
     // validate password
-    try {
-      // compare submitted password and hashed password of found user
-      if (await bcrypt.compare(userData.password, foundUser.password)) {
-        // user logged in
-        // Create JWT
-        delete foundUser.password;
-        const token = generateAccessToken(foundUser);
-        // send the JWT to the user
-        return res.send({ token });
-      }
-    } catch (e) {
-      // Bad password
+    // compare submitted password and hashed password of found user
+    if (await bcrypt.compare(userData.password, foundUser.password)) {
+      // user logged in
+      // Create JWT
+      delete foundUser.password;
+      const token = generateAccessToken(foundUser);
+      // send the JWT to the user
+      return res.send({ token });
+    } else {
+      // bad password
       return res.status(403).json({
         message: 'Please check credentials and try again',
       });
     }
-    return res.json(foundUser);
   },
   // send private user data
   getUser: (req, res) => {

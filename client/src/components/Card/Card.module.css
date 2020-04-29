@@ -1,0 +1,20 @@
+.card {
+  display: flex;
+  padding: 10px;
+  border-radius: 20px;
+  margin: 30px;
+  box-shadow: 20px 20px 60px #3f89b4, -20px -20px 60px #6be9ff;
+}
+
+.card_info {
+  align-self: center;
+  text-align: left;
+  padding-left: 5px;
+}
+.card_img {
+  border-radius: 20px;
+}
+.card_info p,
+.card_info h2 {
+  margin: 0;
+}

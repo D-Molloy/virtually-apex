@@ -58,15 +58,15 @@ const validateSignup = (data) => {
     errors.password = 'Please use a stronger password.';
   }
 
-  if (isEmpty(userData.password2)) {
-    errors.password2 = 'Confirm Password field required.';
+  if (isEmpty(userData.confirmPassword)) {
+    errors.confirmPassword = 'Confirm Password field required.';
   }
 
-  if (!doPasswordsMatch(userData.password, userData.password2)) {
-    errors.password2 = 'Passwords must match.';
+  if (!doPasswordsMatch(userData.password, userData.confirmPassword)) {
+    errors.confirmPassword = 'Passwords must match.';
   }
 
-  delete userData.password2;
+  delete userData.confirmPassword;
 
   return {
     errors,

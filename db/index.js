@@ -1,4 +1,4 @@
-const connection = require('./connection');
+const connection = require('./dbConnection');
 
 class DB {
   // Keeping a reference to the connection on the class in case we need it later
@@ -19,6 +19,9 @@ class DB {
       'INSERT INTO users (name, email, phone, password) VALUES ($1, $2, $3, $4)',
       [name, email, phone, password]
     );
+  }
+  getAllStaff() {
+    return this.connection.query('SELECT * FROM STAFF');
   }
 }
 
