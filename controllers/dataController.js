@@ -1,9 +1,10 @@
-// const db = require('../models');
+const db = require('../db');
 
-// Defining methods for the bookController
+// Defining methods for the general API data
 module.exports = {
-  findAll: function (req, res) {
-    console.log('DATA - FINDALL - ', req.body);
-    res.json(req.body);
+  // get all the staff from the DB
+  getAllStaff: async (req, res) => {
+    const { rows: staff } = await db.getAllStaff();
+    res.json(staff);
   },
 };

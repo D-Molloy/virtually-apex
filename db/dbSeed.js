@@ -1,7 +1,6 @@
 var pgtools = require('pgtools');
 const Client = require('pg').Client;
-const config = require('./dbConfig');
-const DB_NAME = 'test_db2';
+const { config, DB_NAME } = require('./dbConfig');
 
 // create the database
 pgtools.createdb(config, DB_NAME, function (err, res) {
@@ -31,6 +30,7 @@ CREATE TABLE users(
   id SERIAL PRIMARY KEY,
   name VARCHAR (100) NOT NULL,
   email VARCHAR(320) UNIQUE NOT NULL,
+  phone VARCHAR(20) NOT NULL,
   password VARCHAR(60) NOT NULL
 );
 CREATE TABLE staff(

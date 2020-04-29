@@ -10,7 +10,7 @@
     "client": "cd client && npm run start",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+    "seed": "cd db && node dbSeed.js"
   },
   "proxy": "http://localhost:3001/",
   "repository": {

@@ -4,8 +4,10 @@ const { validateSignup, validateLogin } = require('../utils/validation');
 const { generateAccessToken } = require('../utils/auth');
 
 module.exports = {
+  // create a new account
   create: async (req, res) => {
     // validate signup creds
+    console.log('req.body', req.body);
     const { errors, userData } = validateSignup(req.body);
     if (!userData) {
       return res.status(400).json(errors);
@@ -32,6 +34,7 @@ module.exports = {
       });
     }
   },
+  // log a user in
   login: async (req, res) => {
     // validate login creds
     const { errors, userData } = validateLogin(req.body);
