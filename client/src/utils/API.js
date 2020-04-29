@@ -1,21 +1,22 @@
 import axios from 'axios';
 
 export default {
-  // Gets books from the Google API
+  // Signin - create new account
   createUser: (newUserCreds) => {
     return axios.post('/api/auth/create', newUserCreds);
   },
-  // Gets all saved books
+  // Login - login existing user
   loginUser: function (loginCreds) {
     return axios.post('/api/auth/login', loginCreds);
   },
-  // Deletes the saved book with the given id
+  // Dashboard - get private details of logged-in user
   getUser: function (token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return axios.get('/api/auth/user');
   },
-  // Saves an book to the database
-  // saveBook: function(bookData) {
-  //   return axios.post("/api/books", bookData);
-  // }
+  // Dashboard - get all staff (private)
+  getStaff: function (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return axios.get('/api/data');
+  },
 };

@@ -3,18 +3,8 @@ import FormInput from '../../components/FormInput';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { loginUser, selectErrors } from '../../redux/authSlice';
 
-// TODO: cleanup unused
-import {
-  // setToken,
-  // clearToken,
-  // setErrors,
-  // clearErrors,
-  // setUser,
-  // clearUser,
-  loginUser,
-  selectErrors,
-} from '../../redux/authSlice';
 const initalState = {
   email: '',
   password: '',
@@ -31,7 +21,6 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitting Form', formData);
     dispatch(loginUser(formData, history));
   };
 
