@@ -25,7 +25,7 @@ const initalState = {
 };
 
 export default function Signup() {
-  let history = useHistory();
+  const history = useHistory();
   const errors = useSelector(selectErrors);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(initalState);

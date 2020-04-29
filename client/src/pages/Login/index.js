@@ -1,7 +1,20 @@
 import React, { useState } from 'react';
 import FormInput from '../../components/FormInput';
 import { Link } from 'react-router-dom';
-// useHistory
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+// TODO: cleanup unused
+import {
+  // setToken,
+  // clearToken,
+  // setErrors,
+  // clearErrors,
+  // setUser,
+  // clearUser,
+  loginUser,
+  selectErrors,
+} from '../../redux/authSlice';
 const initalState = {
   email: '',
   password: '',
@@ -9,6 +22,9 @@ const initalState = {
 
 export default function Login() {
   const [formData, setFormData] = useState(initalState);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const errors = useSelector(selectErrors);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,6 +32,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Submitting Form', formData);
+    dispatch(loginUser(formData, history));
   };
 
   return (
@@ -31,7 +48,7 @@ export default function Login() {
             title='email'
             handleChange={handleChange}
           />
-
+          <p className='error'>{errors.email}</p>
           <FormInput
             comp='login'
             inputType='password'
@@ -39,10 +56,9 @@ export default function Login() {
             title='password'
             handleChange={handleChange}
           />
-
-          <button disabled={!formData.email || !formData.password}>
-            Login
-          </button>
+          <p className='error'>{errors.password}</p>
+          <p className='error'>{errors.message}</p>
+          <button>Login</button>
         </fieldset>
       </form>
       <Link to='/signup'>Create Account</Link>
