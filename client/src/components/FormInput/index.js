@@ -40,7 +40,7 @@ export default function FormInput({
     default:
       break;
   }
-  console.log('data[title]', data[title]);
+
   return (
     <div className='formInput__container'>
       <label htmlFor={`${comp}__${inputType}`}>{capitalizeStr(title)}:</label>

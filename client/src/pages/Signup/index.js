@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
 import FormInput from '../../components/FormInput';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-// useHistory
+// TODO: cleanup unused
+import {
+  // setToken,
+  // clearToken,
+  // setErrors,
+  // clearErrors,
+  // setUser,
+  // clearUser,
+  createUser,
+  selectErrors,
+} from '../../redux/authSlice';
+
 const initalState = {
   name: '',
   email: '',
@@ -12,6 +25,9 @@ const initalState = {
 };
 
 export default function Signup() {
+  let history = useHistory();
+  const errors = useSelector(selectErrors);
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState(initalState);
 
   const handleChange = (e) =>
@@ -19,7 +35,7 @@ export default function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitting Form', formData);
+    dispatch(createUser(formData, history));
   };
 
   return (
@@ -35,6 +51,7 @@ export default function Signup() {
             title='name'
             handleChange={handleChange}
           />
+          <p className='error'>{errors.name}</p>
           <FormInput
             comp='signup'
             inputType='email'
@@ -42,6 +59,7 @@ export default function Signup() {
             title='email'
             handleChange={handleChange}
           />
+          <p className='error'>{errors.email}</p>
           <FormInput
             comp='signup'
             inputType='phone'
@@ -49,6 +67,7 @@ export default function Signup() {
             title='phone'
             handleChange={handleChange}
           />
+          <p className='error'> {errors.phone}</p>
           <FormInput
             comp='signup'
             inputType='password'
@@ -57,6 +76,7 @@ export default function Signup() {
             title='password'
             handleChange={handleChange}
           />
+          <p className='error'>{errors.password}</p>
           <FormInput
             comp='signup'
             inputType='password'
@@ -64,6 +84,8 @@ export default function Signup() {
             data={formData}
             handleChange={handleChange}
           />
+          <p className='error'> {errors.confirmPassword}</p>
+          <p className='error'>{errors.message}</p>
           <button>Create Account</button>
         </fieldset>
       </form>
