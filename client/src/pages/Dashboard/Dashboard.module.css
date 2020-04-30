@@ -1,6 +1,22 @@
+.user_card {
+  margin: 5px auto 40px;
+}
+.title {
+  font-family: var(--font-title);
+  margin: 0;
+  text-shadow: 1px 1px 2px #fff;
+}
+
+.user_detail {
+  margin: 0;
+  font-size: 12px;
+}
+
 .staff_container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  max-width: 1400px;
+  margin: 30px auto 0;
 }
