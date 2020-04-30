@@ -6,7 +6,8 @@
   "scripts": {
     "start": "concurrently \"node server\" \"npm run client\"",
     "client": "cd client && npm run start",
-    "install": "cd client && npm install",
+    "install:client": "cd client && npm install",
+    "install:server": "npm intall",
     "migrate": "node-pg-migrate",
     "create:db": "cd db && node dbCreate.js",
     "create:tables": "npm run migrate up",

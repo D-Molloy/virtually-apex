@@ -6,7 +6,6 @@ import { createUser, selectErrors, clearErrors } from '../../redux/authSlice';
 
 import FormInput from '../../components/FormInput';
 import styles from '../Login/Login.module.css';
-// TODO: cleanup unused
 
 const initalState = {
   name: '',
