@@ -1,11 +1,14 @@
 import React from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/authSlice';
 import styles from './Nav.module.css';
 
 export default function Nav() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
-  console.log('pathname', pathname);
+
   return (
     <nav className={styles.nav}>
       <h1 className={styles.nav_header}>Virtually Apex</h1>
@@ -16,7 +19,7 @@ export default function Nav() {
               ? { visibility: 'visible' }
               : { visibility: 'hidden' }
           }
-          onClick={() => console.log('LOGGING OFF')}
+          onClick={() => dispatch(logout())}
         >
           Logout
         </button>

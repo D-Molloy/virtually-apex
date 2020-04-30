@@ -36,8 +36,8 @@ export default function Dashboard() {
           <div className={styles.user_card}>
             <h2 className={styles.title}>Welcome</h2>
             <h1>{user.name}</h1>
-            <p class={styles.user_detail}> {user.phone}</p>
-            <p class={styles.user_detail}>{user.email}</p>
+            <p className={styles.user_detail}> {user.phone}</p>
+            <p className={styles.user_detail}>{user.email}</p>
           </div>
           <h2 className={styles.title}>Staff Directory</h2>
           <div className={styles.staff_container}>{renderStaff()}</div>

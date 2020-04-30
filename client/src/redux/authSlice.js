@@ -32,7 +32,9 @@ export const authSlice = createSlice({
       state.user = '';
     },
     logout: (state) => {
-      state = initialState;
+      state.token = '';
+      state.user = '';
+      state.errors = '';
     },
   },
 });
