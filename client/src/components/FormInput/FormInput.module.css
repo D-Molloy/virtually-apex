@@ -1,4 +1,5 @@
-.formInput__container {
+.container {
   display: flex;
   flex-direction: column;
+  margin: 15px;
 }

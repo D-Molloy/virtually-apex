@@ -1,20 +1,59 @@
+:root {
+  --font-title: 'Lobster', cursive;
+  --font-primary: 'Roboto', sans-serif;
+  --blue: #55b9f3;
+  --darkBlue: #008fe3;
+}
+
 body {
   padding: 0;
   margin: 0;
-  background-color: #55b9f3;
+  background-color: var(--blue);
+  font-family: var(--font-primary);
 }
 .App {
   text-align: center;
   height: 100vh;
   width: 100vw;
 }
-
+.main {
+  height: 90vh;
+  overflow: auto;
+}
 .error {
   color: red;
-  font-size: 12px;
+  font-size: 1em;
+  margin: 10px;
+}
+
+h1 {
   margin: 0;
 }
 
-/* Fonts */
-/* PRIMARY - font-family: 'Lobster', cursive; */
-/* SECONDARY - font-family: 'Roboto', sans-serif; */
+button {
+  height: 45px;
+  padding: 0 10px;
+  margin: auto;
+  border: 2px solid var(--darkBlue);
+  border-radius: 25px;
+  background-color: #6bc9ff;
+  cursor: pointer;
+  letter-spacing: 3px;
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: #2db0fc;
+}
+button:active {
+  background-color: var(--darkBlue);
+}
+
+.card {
+  display: flex;
+  padding: 10px;
+  border-radius: 20px;
+  margin: 30px;
+  box-shadow: 20px 20px 60px #3f89b4, -20px -20px 60px #6be9ff;
+  border: none;
+}

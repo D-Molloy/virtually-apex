@@ -1,20 +1,11 @@
-import React, { useState } from 'react';
-import FormInput from '../../components/FormInput';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { createUser, selectErrors, clearErrors } from '../../redux/authSlice';
 
-// TODO: cleanup unused
-import {
-  // setToken,
-  // clearToken,
-  // setErrors,
-  // clearErrors,
-  // setUser,
-  // clearUser,
-  createUser,
-  selectErrors,
-} from '../../redux/authSlice';
+import FormInput from '../../components/FormInput';
+import styles from '../Login/Login.module.css';
 
 const initalState = {
   name: '',
@@ -30,6 +21,10 @@ export default function Signup() {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(initalState);
 
+  useEffect(() => {
+    dispatch(clearErrors());
+  }, [dispatch]);
+
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -39,11 +34,10 @@ export default function Signup() {
   };
 
   return (
-    <div>
-      <h1 id='login__title'>Signup</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <fieldset>
-          <legend>Create Account</legend>
+    <div className='main'>
+      <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
+        <fieldset className='card'>
+          <p className={styles.title}>Create Account</p>
           <FormInput
             comp='signup'
             inputType='text'

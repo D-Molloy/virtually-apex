@@ -1,0 +1,14 @@
+.nav {
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.nav_header {
+  font-family: var(--font-title);
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  font-size: 2.4em;
+}

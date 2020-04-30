@@ -12,33 +12,39 @@ export default function Dashboard() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const [staff, setStaff] = useState([]);
+  if (!token) {
+    history.push('/');
+  }
 
-  useEffect(() => {
-    // if (!token) {
-    //   history.push('/');
-    // }
-    dispatch(getUser(token, history));
-  }, [token, dispatch, history]);
-
-  useEffect(() => {
+  const getStaff = () => {
     API.getStaff(token)
       .then(({ data }) => setStaff(data))
       .catch(() => history.push('/'));
-  }, [token, history]);
+  };
+
+  const init = () => {
+    dispatch(getUser(token, history));
+    getStaff();
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
 
   const renderStaff = () => {
     return staff.map((emp) => <Card user={emp} key={emp.id} />);
   };
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className='main'>
       {user.name ? (
         <div>
-          <div>
-            <h1>Welcome, {user.name}</h1>
-            <p>(e) {user.email}</p>
-            <p>(p) {user.phone}</p>
+          <div className={styles.user_card}>
+            <h2 className={styles.welcome}>Welcome</h2>
+            <h1>{user.name}</h1>
+            <p className={styles.user_detail}> {user.phone}</p>
+            <p className={styles.user_detail}>{user.email}</p>
           </div>
+          <h2 className={styles.title}>Staff Directory</h2>
           <div className={styles.staff_container}>{renderStaff()}</div>
         </div>
       ) : null}

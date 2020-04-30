@@ -14,10 +14,6 @@ export const authSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
-    // TODO: remove?
-    clearToken: (state) => {
-      state.token = '';
-    },
     setErrors: (state, action) => {
       state.errors = action.payload;
     },
@@ -27,24 +23,21 @@ export const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
-    // TODO: remove?
-    clearUser: (state) => {
-      state.user = '';
-    },
+
     logout: (state) => {
-      state = initialState;
+      state.token = '';
+      state.user = '';
+      state.errors = '';
     },
   },
 });
 
 export const {
-  logout,
   setToken,
-  clearToken,
   setErrors,
   clearErrors,
   setUser,
-  clearUser,
+  logout,
 } = authSlice.actions;
 
 export const loginUser = (creds, history) => async (dispatch) => {

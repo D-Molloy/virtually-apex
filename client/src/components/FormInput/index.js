@@ -1,5 +1,5 @@
 import React from 'react';
-import './formInput.css';
+import styles from './FormInput.module.css';
 const capitalizeStr = (str) => str.substr(0, 1).toUpperCase() + str.substr(1);
 
 export default function FormInput({
@@ -42,7 +42,7 @@ export default function FormInput({
   }
 
   return (
-    <div className='formInput__container'>
+    <div className={styles.container}>
       <label htmlFor={`${comp}__${inputType}`}>{capitalizeStr(title)}:</label>
       <input
         id={`${comp}__${altValue || inputType}`}
