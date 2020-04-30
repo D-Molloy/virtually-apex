@@ -12,19 +12,24 @@ export default function Dashboard() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const [staff, setStaff] = useState([]);
+  if (!token) {
+    history.push('/');
+  }
 
-  useEffect(() => {
-    if (!token) {
-      history.push('/');
-    }
-    dispatch(getUser(token, history));
-  }, [token, dispatch, history]);
-
-  useEffect(() => {
+  const getStaff = () => {
     API.getStaff(token)
       .then(({ data }) => setStaff(data))
       .catch(() => history.push('/'));
-  }, [token, history]);
+  };
+
+  const init = () => {
+    dispatch(getUser(token, history));
+    getStaff();
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
 
   const renderStaff = () => {
     return staff.map((emp) => <Card user={emp} key={emp.id} />);
@@ -34,7 +39,7 @@ export default function Dashboard() {
       {user.name ? (
         <div>
           <div className={styles.user_card}>
-            <h2 className={styles.title}>Welcome</h2>
+            <h2 className={styles.welcome}>Welcome</h2>
             <h1>{user.name}</h1>
             <p className={styles.user_detail}> {user.phone}</p>
             <p className={styles.user_detail}>{user.email}</p>

@@ -19,7 +19,10 @@ export default function Nav() {
               ? { visibility: 'visible' }
               : { visibility: 'hidden' }
           }
-          onClick={() => dispatch(logout())}
+          onClick={() => {
+            dispatch(logout());
+            history.push('/');
+          }}
         >
           Logout
         </button>
