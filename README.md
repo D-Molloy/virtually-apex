@@ -9,7 +9,7 @@ An app built with the PERN stack that allows users to create an account, securel
 - `db\dbConfig.js` - config object
 - `.env` - DATABASE_URL string
 
-_Disclaimer - Never upload a `.env` with sensitive information!_
+**_Disclaimer_** - Never upload a `.env` with sensitive information!_
 
 ```
 - git clone https://github.com/D-Molloy/virtually-apex.git
