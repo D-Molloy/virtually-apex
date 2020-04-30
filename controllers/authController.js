@@ -7,7 +7,6 @@ module.exports = {
   // create a new account
   create: async (req, res) => {
     // validate signup creds
-    console.log('req.body', req.body);
     const { errors, userData } = validateSignup(req.body);
     if (!userData) {
       return res.status(400).json(errors);

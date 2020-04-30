@@ -67,7 +67,8 @@ const validateSignup = (data) => {
   }
 
   delete userData.confirmPassword;
-  userData.password = userData.password.toLowerCase();
+  userData.email = userData.email.toLowerCase();
+
   return {
     errors,
     userData: isEmpty(errors) ? userData : null,
